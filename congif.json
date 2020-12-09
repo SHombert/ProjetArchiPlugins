@@ -1,0 +1,15 @@
+{
+	"pluggins": [
+		{
+			"nom":"nom1",
+			"classe":"NomClasse",
+			"autoload":"yes",
+			"params":[
+				{},{}...
+				],
+		},
+		{}
+	]
+}
+	
+	

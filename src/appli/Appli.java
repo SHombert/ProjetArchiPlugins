@@ -8,6 +8,7 @@ public class Appli {
 	IDisplayStrategy display;
 	ArrayList<DescripteurPluggin> descriptionDisplayDispos;
 	
+	
 	public static void main(String[] args) {
 		Appli appli = new Appli();
 		appli.run();
@@ -38,8 +39,7 @@ public class Appli {
 			display = Loader.getDisplayFor(descriptionDisplayDispos.get(0));
 		}
 		// FIXME : charger display si nécessaire (si on en a pas un on le charge) : par défaut prendre le premier trouvé
-		display.output(p);
-		
+		display.output(p);		
 	}
 	
 	

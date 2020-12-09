@@ -12,8 +12,6 @@ public class Loader {
 
 	// Externalisation des instanciations en dur (factory ou autre)
 	public static IDisplayStrategy getDisplay() {
-		
-		
 		return null;
 	}
 
@@ -35,6 +33,7 @@ public class Loader {
 		return null;
 	}
 
+	/*génériser cette fonction car IDisplay stategy dépendance qu'on ne doit pas avoir et getDisplay -> GetPluggin*/
 	public static IDisplayStrategy getDisplayFor(DescripteurPluggin descripteurPluggin) {
 		return null;
 		
@@ -45,5 +44,7 @@ public class Loader {
 	
 	// methode qui renvoie liste de descripteurs 
 
+	
+	// methode qui charge
 	
 }
