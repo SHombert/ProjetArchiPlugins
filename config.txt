@@ -1,2 +1,0 @@
-display1=tiers.DisplayStrategy
-display2=tiers.DisplayStrategyPlus
