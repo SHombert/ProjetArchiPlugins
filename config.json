@@ -1,0 +1,37 @@
+[
+		{
+			"name":"Application RDV médicaux",
+			"className":"appli.Appli",
+			"autoload":"true",
+			"autorun":"true",
+			"params":[
+				]
+		},
+		{
+			"name":"Moniteur de pluggins",
+			"className":"tiers.Monitor",
+			"autoload":"true",
+			"autorun":"false",
+			"params":[
+				]
+		},
+		{
+			"name":"Affichage en liste",
+			"className":"tiers.DisplayList",
+			"autoload":"false",
+			"autorun":"false",
+			"params":[
+				]
+		},
+		{
+			"name":"Chargement par fichiers",
+			"className":"tiers.DisplayList",
+			"autorun":"false",
+			"autoload":"false",
+			"params":[
+				]
+		}
+	]
+
+	
+	
