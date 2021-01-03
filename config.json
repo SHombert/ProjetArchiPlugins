@@ -11,7 +11,7 @@
 			"name":"Moniteur de pluggins",
 			"className":"tiers.Monitor",
 			"autoload":"true",
-			"autorun":"false",
+			"autorun":"true",
 			"params":[
 				]
 		},

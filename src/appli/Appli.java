@@ -6,7 +6,7 @@ import data.Personne;
 import plateforme.DescripteurPluggin;
 import plateforme.Loader;
 
-public class Appli {
+public class Appli implements Runnable{
 	IDisplayStrategy display;
 	ArrayList<DescripteurPluggin> descriptionDisplayDispos;
 	
@@ -16,6 +16,9 @@ public class Appli {
 	public Appli() {
 		//display = Loader.getDisplay(); // pour se débarasser des references statiques à un display
 		// FIXME : charger uniquement le descriptif des display potentiels
+		// à l'initialisation chargement des pluggins corrects
+		
+		
 	
 	}
 	
@@ -25,10 +28,11 @@ public class Appli {
 	}*/
 
 
-	private void run() {
-		Personne p = new Personne();
-		p.setAge(p.getAge()+1);
-		output(p); 
+	public void run() {
+		 System.out.println("Lancement de l'appli");
+		 while (1==1) {
+			 
+		 }
 	}
 
 	public void output(Personne p) { // refactor --> extract

@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -62,7 +64,7 @@ public class Loader {
 	}
 
 	/*génériser cette fonction car IDisplay stategy dépendance qu'on ne doit pas avoir et getDisplay -> GetPluggin*/
-	public static Class getPlugginsFor(DescripteurPluggin descripteurPluggin, String interfaceName) {
+	public static Object loadPlugginsFor(DescripteurPluggin descripteurPluggin, String interfaceName) {
 		return null;
 		
 		//ajouter classname dans config
@@ -73,12 +75,35 @@ public class Loader {
 		
 	}
 	
+	// Parcourt les descripteurs de pluggins et lance la méthode run sur ceux qui sont taggés "autorun"
+	public void autoRun() {
+		for(DescripteurPluggin d : descriptionsPluggins) {
+			if(d.isAutoRun()) {
+				//threads ? 
+				try {
+					Class c = Class.forName(d.getClassName());
+					Object app = c.newInstance();
+					d.setLoaded(true);
+					Thread t = new Thread ((Runnable) app);
+					t.start();
+					//Method m = c.getMethod("run", null);
+					//m.invoke(app, null);
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SecurityException | IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		Loader loader = new Loader();
 		loader.descriptionsPluggins = loader.getDescriptions();
 		System.out.println(loader.descriptionsPluggins.toString());
 		//AutoLoad
 		//AutoRun
+		loader.autoRun();
 		
 	}
 

@@ -3,12 +3,12 @@ package plateforme;
 import java.util.HashMap;
 
 public class DescripteurPluggin {
-	String name;
-	String className;
-	boolean autoLoad;
-	boolean autoRun;
-	HashMap<String,String> options;
-	boolean loaded;
+	protected String name;
+	protected String className;
+	protected boolean autoLoad;
+	protected boolean autoRun;
+	protected HashMap<String,String> options;
+	protected boolean loaded;
 
 	public DescripteurPluggin(String n, String className) {
 		this.name=n;
