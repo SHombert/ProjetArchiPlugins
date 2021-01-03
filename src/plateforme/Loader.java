@@ -63,12 +63,18 @@ public class Loader {
 		return null;
 	}
 
-	/*génériser cette fonction car IDisplay stategy dépendance qu'on ne doit pas avoir et getDisplay -> GetPluggin*/
+	/*à quoi sert le interfaceName => on renvoie un object et c'est à l'appli de cast ? */
 	public static Object loadPlugginsFor(DescripteurPluggin descripteurPluggin, String interfaceName) {
-		return null;
-		
-		//ajouter classname dans config
-		
+		Class c;
+		Object pluggin= null;
+		try {
+			c = Class.forName(descripteurPluggin.getClassName());
+			pluggin = c.newInstance();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return pluggin;
 	}
 	
 	public void loadAuto() {
