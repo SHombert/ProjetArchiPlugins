@@ -61,8 +61,7 @@ public class RDV {
 
 	@Override
 	public String toString() {
-		return "RDV [date=" + date + ", horaire=" + horaire + ", motif=" + motif + ", patient=" + patient + ", medecin="
-				+ medecin + "]";
+		return date + "," + horaire + "," + motif + "," + patient + ","	+ medecin ;
 	}
 	
 	

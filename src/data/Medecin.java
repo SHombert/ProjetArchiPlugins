@@ -18,4 +18,8 @@ public class Medecin {
 		this.prenom = prenom;
 	}
   
+	@Override
+	public String toString() {
+		return nom.toUpperCase() + " " + prenom;
+	}
 }

@@ -3,23 +3,27 @@ package appli;
 import java.util.ArrayList;
 
 import data.Personne;
+import data.RDV;
 import plateforme.DescripteurPluggin;
 import plateforme.Loader;
 
 public class Appli implements Runnable{
-	IDisplayStrategy display;
+	IDisplay display;
 	ArrayList<DescripteurPluggin> descriptionDisplayDispos;
+	ArrayList<RDV> rdvs;
 	
 	
 	
 
 	public Appli() {
+		// recuperer descripteurs
+		// load la liste
+		// load des infos à partir du fichier
 		//display = Loader.getDisplay(); // pour se débarasser des references statiques à un display
 		// FIXME : charger uniquement le descriptif des display potentiels
 		// à l'initialisation chargement des pluggins corrects
 		
-		
-	
+			
 	}
 	
 

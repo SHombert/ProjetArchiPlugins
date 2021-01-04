@@ -54,8 +54,9 @@ public class LoadFromFile {
 				 
 				  String  medecinString = line.split(",")[4];
 				  Medecin medecin = new Medecin();
-				  medecin.setNom(medecinString.split(" ")[0]);
-				  medecin.setPrenom(medecinString.split(" ")[1]);
+				  String [] splittedMedecin = medecinString.split(" ");
+				  medecin.setNom(splittedMedecin[0]);
+				  medecin.setPrenom(splittedMedecin[1]);
 				   
 				  RDV rdv = new RDV(date, horaire, motif, patient, medecin);
 				  
