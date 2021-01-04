@@ -31,16 +31,25 @@ public class Loader {
 	
 	static final String CONFIG ="config.json";
 
-	private ArrayList<DescripteurPluggin> descriptionsPluggins;
+	private HashMap<String,DescripteurPluggin> descriptionsPluggins;
+	
+	private static Loader instance = new Loader();
+	
+	public Loader() {	
+	}
+	
+	public static Loader getInstance() {
+		return instance;
+	}
  
 	// Externalisation des instanciations en dur (factory ou autre)
 
-	public ArrayList<DescripteurPluggin> getDescriptions() {// améliorer -> ne charger que les pluggins logiques/contextuels
+	public static HashMap<String, DescripteurPluggin> getDescriptions() {// améliorer -> ne charger que les pluggins logiques/contextuels
 		
 		// parametre avec classe correspondant à l'interface que les pluggins vont satisfaire
 		// un avec classe (interface) ou cdc
 		//
-		descriptionsPluggins = new ArrayList();
+		HashMap<String,DescripteurPluggin> descriptionsPluggins = new HashMap<String,DescripteurPluggin>();
 	    JSONParser parser = new JSONParser();
 	    try {
 	    	Reader reader = Files.newBufferedReader(Paths.get(CONFIG));
@@ -52,8 +61,9 @@ public class Loader {
 			    pluggin.setClassName((String) plugginObj.get("className"));
 			    pluggin.setAutoLoad(Boolean.parseBoolean((String) plugginObj.get("autoload")));
 			    pluggin.setAutoRun(Boolean.parseBoolean((String) plugginObj.get("autorun")));
-			    descriptionsPluggins.add(pluggin);
+			    descriptionsPluggins.put(pluggin.getName(), pluggin);
 			}
+		    Loader.getInstance().setDescripteurs(descriptionsPluggins);
 		    return descriptionsPluggins;
 		    
 		} catch (IOException | ParseException e) {
@@ -61,6 +71,11 @@ public class Loader {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	private void setDescripteurs(HashMap<String, DescripteurPluggin> descriptionsPluggins2) {
+		this.descriptionsPluggins = descriptionsPluggins2;
+		
 	}
 
 	/*à quoi sert le interfaceName => on renvoie un object et c'est à l'appli de cast ? */
@@ -83,7 +98,7 @@ public class Loader {
 	
 	// Parcourt les descripteurs de pluggins et lance la méthode run sur ceux qui sont taggés "autorun"
 	public void autoRun() {
-		for(DescripteurPluggin d : descriptionsPluggins) {
+		for(DescripteurPluggin d : descriptionsPluggins.values()) {
 			if(d.isAutoRun()) {
 				//threads ? 
 				try {
@@ -104,7 +119,7 @@ public class Loader {
 	
 	
 	public static void main(String[] args) {
-		Loader loader = new Loader();
+		Loader loader = Loader.getInstance();
 		loader.descriptionsPluggins = loader.getDescriptions();
 		System.out.println(loader.descriptionsPluggins.toString());
 		//AutoLoad

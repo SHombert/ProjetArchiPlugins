@@ -25,7 +25,7 @@
 		},
 		{
 			"name":"Chargement par fichiers",
-			"className":"tiers.DisplayList",
+			"className":"tiers.LoadFromFile",
 			"autorun":"false",
 			"autoload":"false",
 			"params":[

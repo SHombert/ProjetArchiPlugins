@@ -10,18 +10,19 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.event.*;
 
+import appli.IDisplay;
 import data.RDV;
 
-public class DisplayList extends JFrame  {
+public class DisplayList extends JFrame implements IDisplay {
 	  
   
     //main class 
-    public static void main(String[] args) throws IOException, ParseException 
+   /* public static void main(String[] args) throws IOException, ParseException 
     { 
     	List<RDV> listRDV = LoadFromFile.getRdvList("C:\\Users\\Utilisateur\\Desktop\\MASTER 2\\ARCHI LOG\\ProjetArchiPlugins\\src\\tiers\\rdv_file.txt");
     	DisplayList dl = new DisplayList();
     	dl.displayRDVList(listRDV);
-    } 
+    } */
     
     public void displayRDVList(List<RDV> rdvList) {
     	
