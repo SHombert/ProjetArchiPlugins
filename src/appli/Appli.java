@@ -7,22 +7,22 @@ import java.util.HashMap;
 
 import data.Personne;
 import data.RDV;
-import plateforme.DescripteurPluggin;
+import plateforme.DescripteurPlugin;
 import plateforme.Loader;
 import tiers.LoadFromFile;
 
 public class Appli implements Runnable {
 	IDisplay display;
-	HashMap<String, DescripteurPluggin> descriptionPlugginsDispos;
+	HashMap<String, DescripteurPlugin> descriptionPluginsDispos;
 	ILoadRDVs loadRdv;
 	ArrayList<RDV> rdvs;
 	// ICreateRDV createRDV;
 
 	public Appli() {
 		// recuperer descripteurs
-		descriptionPlugginsDispos = Loader.getDescriptions();
-		display = (IDisplay) Loader.loadPlugginsFor(descriptionPlugginsDispos.get("Affichage en liste"), "");// load la liste
-		loadRdv =  (ILoadRDVs) Loader.loadPlugginsFor(descriptionPlugginsDispos.get("Chargement par fichiers"), "");
+		descriptionPluginsDispos = Loader.getInstance().getDescriptionsPlugins(); // TODO :  changer en getDescripteurs (à écrire dans le loader)
+		display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"));// load la liste
+		loadRdv =  (ILoadRDVs) Loader.loadPluginsFor(descriptionPluginsDispos.get("Chargement par fichiers"));
 		
 		rdvs = (ArrayList<RDV>) loadRdv.getRdvList("src/tiers/rdv_file.txt");
 		

@@ -2,11 +2,11 @@ package tiers;
 
 import java.util.ArrayList;
 
-import plateforme.DescripteurPluggin;
+import plateforme.DescripteurPlugin;
 
 public class Monitor implements Runnable{
 
-	ArrayList<DescripteurPluggin> listePluggins;
+	ArrayList<DescripteurPlugin> listePluggins;
 	
 	public Monitor() {
 		
