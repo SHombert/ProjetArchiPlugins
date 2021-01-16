@@ -10,7 +10,7 @@ public class DescripteurPlugin {
 	protected boolean autoRun;
 	protected HashMap<String,String> options;
 	protected Class[] args; 
-	protected List<String> dependencies;
+	protected List<String> requirements;
 	protected boolean loaded;
 
 	public DescripteurPlugin(String n, String className) {
@@ -73,24 +73,21 @@ public class DescripteurPlugin {
 	@Override
 	public String toString() {
 		return "DescripteurPlugin [name=" + name + ", className=" + className + ", autoRun=" + autoRun + ", args="
-				+ args + ", dependencies=" + dependencies + "]";
+				+ args + ", dependencies=" + requirements + "]";
 	}
 
-	public List<String> getDependencies() {
-		return dependencies;
+	public List<String> getRequirements() {
+		return requirements;
 	}
 
-	public void setDependencies(List<String> dependencies) {
-		this.dependencies = dependencies;
+	public void setRequirements(List<String> requirements) {
+		this.requirements = requirements;
 	}
 	
 	public void addArgs(List<String> argClasses) {
 		args=new Class[argClasses.size()];
-		System.out.println(argClasses);
 		for (int i=0; i<argClasses.size(); i++) {
 			try {
-				System.out.println(i);
-				System.out.println(argClasses.get(i));
 				args[i]=Class.forName(argClasses.get(i));
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block

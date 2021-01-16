@@ -32,7 +32,7 @@ import appli.IDisplay;
 public class Loader {
 	
 	static final String CONFIG ="config.json";
-
+ 
 	private HashMap<String,DescripteurPlugin> descriptionsPlugins;
 	
 	private static Loader instance = new Loader();
@@ -60,18 +60,15 @@ public class Loader {
 			    pluggin.setName((String) plugginObj.get("name"));
 			    pluggin.setClassName((String) plugginObj.get("className"));
 			    pluggin.setAutoRun(Boolean.parseBoolean((String) plugginObj.get("autorun")));
-			    List<String> deps = (List<String>) plugginObj.get("dependencies");
-			    System.out.println(deps);
+			    List<String> deps = (List<String>) plugginObj.get("requirements");
 			    if(deps==null || !deps.isEmpty()) {
-			    	pluggin.setDependencies(deps);
+			    	pluggin.setRequirements(deps);
 			    }
-			    
 			    List<String> args = (List<String>) plugginObj.get("params");
-			    System.out.println(args);
 			    if(args==null || !args.isEmpty()) { 	
 			   		pluggin.addArgs(args);
-			    
 			    }
+			    //TODO : gestion dependecy : pluginParent
 			    descriptionsPlugins.put(pluggin.getName(), pluggin);
 			}
 		    Loader.getInstance().setDescriptionsPlugins(descriptionsPlugins);
@@ -81,8 +78,6 @@ public class Loader {
 			e.printStackTrace();
 		}
 	}
-
-	// methode get descripteurs avec parametre
 	
 	/**
 	 * Méthode utilisée par les pluggins pour récupérer les plugins disponibles
@@ -91,7 +86,7 @@ public class Loader {
 	
 	
 	// TODO 
-	public static HashMap<String, DescripteurPlugin> getDescripteurs() {
+	public static HashMap<String, DescripteurPlugin> getDescripteurs(String dependency) {
 		return null;
 		
 	}
@@ -109,7 +104,6 @@ public class Loader {
 		Class c;
 		Constructor constructor;
 		Object pluggin= null;
-		System.out.println(descripteurPlugin.getClassName());
 		try {
 			c = Class.forName(descripteurPlugin.getClassName());
 			if(descripteurPlugin.getArgs()!=null) {

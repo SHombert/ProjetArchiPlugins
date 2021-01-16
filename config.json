@@ -4,7 +4,8 @@
 			"className":"appli.Appli",
 			"autorun":"true",
 			"params":[],
-			"dependencies":["Affichage en liste","Chargement par fichier"],
+			"requirements":["Affichage en liste","Chargement par fichier"],
+			
 		},
 		{
 			"name":"Moniteur de pluggins",
@@ -12,6 +13,7 @@
 			"autorun":"true",
 			"params":[
 				],
+			
 		},
 		{
 			"name":"Affichage en liste",
@@ -19,12 +21,14 @@
 			"autorun":"false",
 			"params":[
 				],
+			"dependency":"Application RDV médicaux",
 		},
 		{
 			"name":"Chargement par fichiers",
 			"className":"tiers.LoadFromFile",
 			"autorun":"false",
 			"params":[],
+			"dependency":"Application RDV médicaux",
 		}
 		,
 		{
@@ -32,6 +36,7 @@
 			"className":"tiers.LoadFromForm",
 			"autorun":"false",
 			"params":["java.util.List","java.util.List"],
+			"dependency":"Application RDV médicaux",
 		}
 	]
 
