@@ -2,17 +2,10 @@ package tiers;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
 import appli.ILoadRDVs;
 import data.Medecin;
 import data.Patient;
@@ -44,8 +37,8 @@ public class LoadFromFile implements ILoadRDVs {
 				//construction des objects RDV
 				String  dateString = line.split(",")[0];
 
-				DateFormat format = new SimpleDateFormat("dd-MM-yy");
-				Date date = format.parse(dateString);
+//				DateFormat format = new SimpleDateFormat("dd-MM-yy");
+//				String date = format.parse(dateString);
 
 				String  horaire = line.split(",")[1];
 				String  motif = line.split(",")[2];
@@ -53,8 +46,9 @@ public class LoadFromFile implements ILoadRDVs {
 
 				String  patientString = line.split(",")[3];
 				Patient patient = new Patient();
-				patient.setNom(patientString.split(" ")[0]);
-				patient.setPrenom(patientString.split(" ")[1]);
+				String [] splittedPatient = patientString.split(" ");
+				patient.setNom(splittedPatient[0]);
+				patient.setPrenom(splittedPatient[1]);
 
 				String  medecinString = line.split(",")[4];
 				Medecin medecin = new Medecin();
@@ -62,12 +56,12 @@ public class LoadFromFile implements ILoadRDVs {
 				medecin.setNom(splittedMedecin[0]);
 				medecin.setPrenom(splittedMedecin[1]);
 
-				RDV rdv = new RDV(date, horaire, motif, patient, medecin);
+				RDV rdv = new RDV(dateString, horaire, motif, patient, medecin);
 
 				rdvList.add(rdv);			  
 
 			}
-		} catch (IOException | ParseException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

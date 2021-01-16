@@ -5,13 +5,13 @@ import java.util.Date;
 public class RDV {
 
 	
-	private Date date;
+	private String date;
 	private String horaire;
 	private String motif;
 	private Patient patient;
 	private Medecin medecin;
 	
-	public RDV(Date date, String horaire, String motif, Patient patient, Medecin medecin) {
+	public RDV(String date, String horaire, String motif, Patient patient, Medecin medecin) {
 		this.date = date;
 		this.horaire = horaire;
 		this.motif = motif;
@@ -19,11 +19,11 @@ public class RDV {
 		this.medecin = medecin;
 	}
 	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	

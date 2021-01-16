@@ -31,11 +31,12 @@ public class DisplayList extends JFrame implements IDisplay {
 		 rdvArray[i] = rdvList.get(i);
 
          JList<RDV> rdvJList = new JList<>(rdvArray);
+         rdvJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
          getContentPane().add(rdvJList);
 
          pack();
-         setMinimumSize(new Dimension(200, 200));
+         setMinimumSize(new Dimension(500, 300));
          setVisible(true);
     }     
  
