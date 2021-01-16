@@ -11,12 +11,12 @@ import plateforme.DescripteurPluggin;
 import plateforme.Loader;
 import tiers.LoadFromFile;
 
-public class Appli implements Runnable{
+public class Appli implements Runnable {
 	IDisplay display;
 	HashMap<String, DescripteurPluggin> descriptionPlugginsDispos;
 	ILoadRDVs loadRdv;
 	ArrayList<RDV> rdvs;
-	
+	// ICreateRDV createRDV;
 
 	public Appli() {
 		// recuperer descripteurs
@@ -37,7 +37,7 @@ public class Appli implements Runnable{
 		 System.out.println("Lancement de l'appli");
 		 output();
 		 while (1==1) {
-			 
+			 // clique sur new --> lance createNewRDV()
 		 }
 	}
 
@@ -49,6 +49,14 @@ public class Appli implements Runnable{
 		display.displayRDVList(rdvs);
 	}
 	
+	/*
+	 * 
+	 * createRDV() {
+	 *  	si pas null;  createRDV = Loader.loadPluginFor(descripteur, [])  --> Lance la fenetre
+	 *  	createRDV.getRDV();
+	 *  	
+	 * 
+	 */
 	
 
 }

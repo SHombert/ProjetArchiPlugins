@@ -14,6 +14,8 @@ public class Monitor implements Runnable{
 	
 	public void run() {
 		System.out.println("Lancement du moniteur");
+		// Frame qui affiche regulièrement l'état des pluggins
+		// notification chargement pluggin
 		 
 	}
 }

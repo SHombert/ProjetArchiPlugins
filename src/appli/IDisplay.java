@@ -10,6 +10,7 @@ public interface IDisplay {
 	
 	// Permet d'avoir plusieurs implémentations de l'affichage, DisplayStrategy en est une possible
 
-	 public void displayRDVList(List<RDV> rdvList);
+	 public void displayRDVList(List<RDV> rdvList); // changer en displayRDV 
+
 
 }

@@ -48,7 +48,7 @@ public class Loader {
 		
 		// parametre avec classe correspondant à l'interface que les pluggins vont satisfaire
 		// un avec classe (interface) ou cdc
-		//
+
 		HashMap<String,DescripteurPluggin> descriptionsPluggins = new HashMap<String,DescripteurPluggin>();
 	    JSONParser parser = new JSONParser();
 	    try {
@@ -73,6 +73,9 @@ public class Loader {
 		return null;
 	}
 
+	// methode get descripteurs avec parametre
+	
+	
 	private void setDescripteurs(HashMap<String, DescripteurPluggin> descriptionsPluggins2) {
 		this.descriptionsPluggins = descriptionsPluggins2;
 		
@@ -89,6 +92,7 @@ public class Loader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// Monitor.addPluggin()
 		return pluggin;
 	}
 	
@@ -122,13 +126,11 @@ public class Loader {
 		Loader loader = Loader.getInstance();
 		loader.descriptionsPluggins = loader.getDescriptions();
 		System.out.println(loader.descriptionsPluggins.toString());
-		//AutoLoad
-		//AutoRun
 		loader.autoRun();
+		// maj moniteur
 		
 	}
 
-	
-	// methode qui charge
+
 	
 }
