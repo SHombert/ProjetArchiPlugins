@@ -49,29 +49,35 @@ public class Loader {
 	 * Methode privée utilisée au lancement de la plateforme pour charger les plugins du fichier de config
 	 */
 	private void getDescriptions() {
-		HashMap<String,DescripteurPlugin> descriptionsPlugins = new HashMap<String,DescripteurPlugin>();
+		descriptionsPlugins = new HashMap<String,DescripteurPlugin>();
 	    JSONParser parser = new JSONParser();
 	    try {
 	    	Reader reader = Files.newBufferedReader(Paths.get(CONFIG));
-	    	JSONArray pluggins = (JSONArray) parser.parse(reader);
-		    for (Object o : pluggins) {
-		    	JSONObject plugginObj = (JSONObject) o;
-		    	DescripteurPlugin pluggin = new DescripteurPlugin();
-			    pluggin.setName((String) plugginObj.get("name"));
-			    pluggin.setClassName((String) plugginObj.get("className"));
-			    pluggin.setAutoRun(Boolean.parseBoolean((String) plugginObj.get("autorun")));
-			    List<String> deps = (List<String>) plugginObj.get("requirements");
-			    if(deps==null || !deps.isEmpty()) {
-			    	pluggin.setRequirements(deps);
+	    	JSONArray plugins = (JSONArray) parser.parse(reader);
+		    for (Object o : plugins) {
+		    	JSONObject pluginObj = (JSONObject) o;
+		    	DescripteurPlugin plugin = new DescripteurPlugin();
+			    plugin.setName((String) pluginObj.get("name"));
+			    plugin.setClassName((String) pluginObj.get("className"));
+			    plugin.setAutoRun(Boolean.parseBoolean((String) pluginObj.get("autorun")));
+			    // Gestion plugins requis
+			    List<String> reqs = (List<String>) pluginObj.get("requirements");
+			    if(reqs==null || !reqs.isEmpty()) {
+			    	plugin.setRequirements(reqs);
 			    }
-			    List<String> args = (List<String>) plugginObj.get("params");
+			    // Gestion arguments constructeur par défaut
+			    List<String> args = (List<String>) pluginObj.get("params");
 			    if(args==null || !args.isEmpty()) { 	
-			   		pluggin.addArgs(args);
+			   		plugin.addArgs(args);
 			    }
-			    //TODO : gestion dependecy : pluginParent
-			    descriptionsPlugins.put(pluggin.getName(), pluggin);
+			    // Gestion dependecy : pluginParent
+			    if(pluginObj.get("dependency")!=null || pluginObj.get("dependency")!="") {
+			    	plugin.setDependency((String) pluginObj.get("dependency"));
+			    }
+
+			    descriptionsPlugins.put(plugin.getName(), plugin);
 			}
-		    Loader.getInstance().setDescriptionsPlugins(descriptionsPlugins);
+		    
 		    
 		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
@@ -80,14 +86,18 @@ public class Loader {
 	}
 	
 	/**
-	 * Méthode utilisée par les pluggins pour récupérer les plugins disponibles
-	 * @return
+	 * Méthode qui renvoit les plugins dépendants du plugin dont le nom est passé en paramètre (dependency)
+	 * Utilisée pour ne renvoyer aux plugins qui les demandent uniquement les plugins qui les concernent
+	 * @return descripteurs : map de key,value, la clé est le nom du plugin et la valeur de descripteur de plugin correspondant
 	 */
-	
-	
-	// TODO 
 	public static HashMap<String, DescripteurPlugin> getDescripteurs(String dependency) {
-		return null;
+		HashMap<String, DescripteurPlugin> descripteurs = new HashMap<String, DescripteurPlugin>();
+		for(DescripteurPlugin d : Loader.getInstance().getDescriptionsPlugins().values()) {
+			if(d.getDependency()!=null && d.getDependency().equals(dependency)) {
+				descripteurs.put(d.getName(), d);
+			}
+		}
+		return descripteurs;
 		
 	}
 	

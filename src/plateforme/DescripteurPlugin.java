@@ -1,6 +1,7 @@
 package plateforme;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,16 @@ public class DescripteurPlugin {
 	protected HashMap<String,String> options;
 	protected Class[] args; 
 	protected List<String> requirements;
+	protected String dependency;
+	
+	public String getDependency() {
+		return dependency;
+	}
+
+	public void setDependency(String dependency) {
+		this.dependency = dependency;
+	}
+
 	protected boolean loaded;
 
 	public DescripteurPlugin(String n, String className) {
@@ -73,7 +84,7 @@ public class DescripteurPlugin {
 	@Override
 	public String toString() {
 		return "DescripteurPlugin [name=" + name + ", className=" + className + ", autoRun=" + autoRun + ", args="
-				+ args + ", dependencies=" + requirements + "]";
+				+ Arrays.toString(args) + ", requirements=" + requirements + ", dependency=" + dependency + "]";
 	}
 
 	public List<String> getRequirements() {

@@ -12,6 +12,7 @@ import plateforme.Loader;
 import tiers.LoadFromFile;
 
 public class Appli implements Runnable {
+	private static final String APPNAME = "Application RDV médicaux";
 	IDisplay display;
 	HashMap<String, DescripteurPlugin> descriptionPluginsDispos;
 	ILoadRDVs loadRdv;
@@ -20,16 +21,14 @@ public class Appli implements Runnable {
 
 	public Appli() {
 		// recuperer descripteurs
-		descriptionPluginsDispos = Loader.getInstance().getDescriptionsPlugins(); // TODO :  changer en getDescripteurs (à écrire dans le loader)
-		display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"));// load la liste
+		System.out.println("Lancement de l'appli : constructeur");
+		descriptionPluginsDispos = Loader.getDescripteurs(APPNAME);
+				display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"));// load la liste
 		loadRdv =  (ILoadRDVs) Loader.loadPluginsFor(descriptionPluginsDispos.get("Chargement par fichiers"));
 		
 		rdvs = (ArrayList<RDV>) loadRdv.getRdvList("src/tiers/rdv_file.txt");
 		
 		// load des infos à partir du fichier
-		//display = Loader.getDisplay(); // pour se débarasser des references statiques à un display
-		// FIXME : charger uniquement le descriptif des display potentiels
-		// à l'initialisation chargement des pluggins corrects
 		
 	}
 	
