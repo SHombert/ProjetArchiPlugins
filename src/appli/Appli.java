@@ -23,7 +23,7 @@ public class Appli implements Runnable {
 		// recuperer descripteurs
 		System.out.println("Lancement de l'appli : constructeur");
 		descriptionPluginsDispos = Loader.getDescripteurs(APPNAME);
-				display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"));// load la liste
+		display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"));// load la liste
 		loadRdv =  (ILoadRDVs) Loader.loadPluginsFor(descriptionPluginsDispos.get("Chargement par fichiers"));
 		
 		rdvs = (ArrayList<RDV>) loadRdv.getRdvList("src/tiers/rdv_file.txt");

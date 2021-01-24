@@ -29,9 +29,10 @@ import appli.IDisplay;
 
 
 
-public class Loader {
+public class Loader implements Subject{
 	
 	static final String CONFIG ="config.json";
+	List<Observer> suscribers;
  
 	private HashMap<String,DescripteurPlugin> descriptionsPlugins;
 	
@@ -45,6 +46,14 @@ public class Loader {
 		return instance;
 	}
  
+	public void setDescriptionsPlugins(HashMap<String, DescripteurPlugin> descriptionsPluggins) {
+		this.descriptionsPlugins = descriptionsPluggins;
+	}
+
+	public HashMap<String, DescripteurPlugin> getDescriptionsPlugins() {
+		return descriptionsPlugins;
+	}
+	
 	/**
 	 * Methode privée utilisée au lancement de la plateforme pour charger les plugins du fichier de config
 	 */
@@ -100,16 +109,13 @@ public class Loader {
 		return descripteurs;
 		
 	}
-	
 
-	public void setDescriptionsPlugins(HashMap<String, DescripteurPlugin> descriptionsPluggins) {
-		this.descriptionsPlugins = descriptionsPluggins;
-	}
-
-	public HashMap<String, DescripteurPlugin> getDescriptionsPlugins() {
-		return descriptionsPlugins;
-	}
-
+	/**
+	 * Methode qui instancie un plugin a partir du descripeur passé en parametre, utilise le constructeur par défaut avec ou sans arguments 
+	 * Les arguments du constructeurs doivent être précisés dans le descripteur de plugin
+	 * @param descripteurPlugin : descripteur correspondant au plugin que l'on veut charger
+	 * @return une instance du plugin demandé
+	 */
 	public static Object loadPluginsFor(DescripteurPlugin descripteurPlugin ) {
 		Class c;
 		Constructor constructor;
@@ -133,7 +139,9 @@ public class Loader {
 	}
 	
 	
-	// Parcourt les descripteurs de pluggins et lance la méthode run sur ceux qui sont taggés "autorun"
+	/**
+	 * Parcourt les descripteurs de pluggins et lance la méthode run sur ceux qui sont taggés "autorun"
+	 */
 	
 	private void autoRun() {
 		for(DescripteurPlugin d : descriptionsPlugins.values()) {
@@ -157,6 +165,28 @@ public class Loader {
 		
 		loader.autoRun();
 		// maj moniteur
+		
+	}
+
+	@Override
+	public void addSubscriber(Observer observer) {
+		if(this.suscribers==null) {
+			this.suscribers = new ArrayList<Observer>();
+		}
+		this.suscribers.add(observer);
+	}
+
+	@Override
+	public void removeSubscriber(Observer observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifySubscribers() {
+		for(Observer suscriber : this.suscribers) {
+           //suscriber.update();
+        }
 		
 	}
 
