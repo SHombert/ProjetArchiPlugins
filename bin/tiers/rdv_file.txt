@@ -1,7 +1,0 @@
-11-11-2021,"10:12","Douleurs abdominales","Alex Morgan","Jose Maria"
-12-12-2021,"12:12","Diarrhée","Denzel Washington","Aicha BAH"
-13-11-2021,"09:10","Toux","Dwane Johnson","Forman Georges"
-14-11-2021,"12:30","Grippe","Lebron James","Hantz Watzke"
-15-11-2021,"08:30","Cephalés","Mikel Jordan","Solene Arfa"
-16-11-2021,"16:00","Courbatures", "Leo Messi","Ramon Cugat"
-17-11-2021,"14:20","Douleurs abdominales","Maria Sharapova","Pablo Escobar"
