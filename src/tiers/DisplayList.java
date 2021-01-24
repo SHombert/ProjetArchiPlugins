@@ -24,20 +24,21 @@ public class DisplayList extends JFrame implements IDisplay {
     	dl.displayRDVList(listRDV);
     } */
     
-    public void displayRDVList(List<RDV> rdvList) {
+	public void displayRDVList(List<RDV> rdvList) {
     	
     	RDV [] rdvArray = new RDV[rdvList.size()];
 		for (int i = 0; i < rdvList.size(); i++) 
 		 rdvArray[i] = rdvList.get(i);
 
          JList<RDV> rdvJList = new JList<>(rdvArray);
+         rdvJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
          getContentPane().add(rdvJList);
 
          pack();
-         setMinimumSize(new Dimension(200, 200));
+         setMinimumSize(new Dimension(500, 300));
          setVisible(true);
-    }     
+    }   
  
 
 }
