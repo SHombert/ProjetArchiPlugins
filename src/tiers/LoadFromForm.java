@@ -16,12 +16,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import appli.ILoadFromForm;
+import appli.ICreateRDV;
 import data.Medecin;
 import data.Patient;
 import data.RDV;
 
-public class LoadFromForm extends JFrame implements ILoadFromForm , ActionListener{
+public class LoadFromForm extends JFrame implements ICreateRDV , ActionListener{
 	
 	// Components of the Form 
 	private Container c; 
@@ -255,7 +255,7 @@ public class LoadFromForm extends JFrame implements ILoadFromForm , ActionListen
    }
 
 	@Override
-	public RDV getAddedRdv() {
+	public RDV getNewRdv() {
 				
 		return this.rdv;
 	}

@@ -2,34 +2,41 @@
 		{
 			"name":"Application RDV médicaux",
 			"className":"appli.Appli",
-			"autoload":"true",
 			"autorun":"true",
-			"params":[
-				]
+			"params":[],
+			"requirements":["Affichage en liste","Chargement par fichier"],
+			
 		},
 		{
 			"name":"Moniteur de pluggins",
 			"className":"tiers.Monitor",
-			"autoload":"true",
 			"autorun":"true",
 			"params":[
-				]
+				],
+			
 		},
 		{
 			"name":"Affichage en liste",
 			"className":"tiers.DisplayList",
-			"autoload":"false",
 			"autorun":"false",
 			"params":[
-				]
+				],
+			"dependency":"Application RDV médicaux",
 		},
 		{
 			"name":"Chargement par fichiers",
 			"className":"tiers.LoadFromFile",
 			"autorun":"false",
-			"autoload":"false",
-			"params":[
-				]
+			"params":[],
+			"dependency":"Application RDV médicaux",
+		}
+		,
+		{
+			"name":"Création formulaire",
+			"className":"tiers.LoadFromForm",
+			"autorun":"false",
+			"params":["java.util.List","java.util.List"],
+			"dependency":"Application RDV médicaux",
 		}
 	]
 

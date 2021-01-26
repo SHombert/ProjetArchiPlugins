@@ -7,29 +7,28 @@ import java.util.HashMap;
 
 import data.Personne;
 import data.RDV;
-import plateforme.DescripteurPluggin;
+import plateforme.DescripteurPlugin;
 import plateforme.Loader;
 import tiers.LoadFromFile;
 
 public class Appli implements Runnable {
+	private static final String APPNAME = "Application RDV médicaux";
 	IDisplay display;
-	HashMap<String, DescripteurPluggin> descriptionPlugginsDispos;
+	HashMap<String, DescripteurPlugin> descriptionPluginsDispos;
 	ILoadRDVs loadRdv;
 	ArrayList<RDV> rdvs;
 	// ICreateRDV createRDV;
 
 	public Appli() {
 		// recuperer descripteurs
-		descriptionPlugginsDispos = Loader.getDescriptions();
-		display = (IDisplay) Loader.loadPlugginsFor(descriptionPlugginsDispos.get("Affichage en liste"), "");// load la liste
-		loadRdv =  (ILoadRDVs) Loader.loadPlugginsFor(descriptionPlugginsDispos.get("Chargement par fichiers"), "");
+		System.out.println("Lancement de l'appli : constructeur");
+		descriptionPluginsDispos = Loader.getDescripteurs(APPNAME);
+		display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"));// load la liste
+		loadRdv =  (ILoadRDVs) Loader.loadPluginsFor(descriptionPluginsDispos.get("Chargement par fichiers"));
 		
 		rdvs = (ArrayList<RDV>) loadRdv.getRdvList("src/tiers/rdv_file.txt");
 		
 		// load des infos à partir du fichier
-		//display = Loader.getDisplay(); // pour se débarasser des references statiques à un display
-		// FIXME : charger uniquement le descriptif des display potentiels
-		// à l'initialisation chargement des pluggins corrects
 		
 	}
 	
