@@ -83,8 +83,6 @@ public class Loader implements Subject{
 			    if(pluginObj.get("dependency")!=null || pluginObj.get("dependency")!="") {
 			    	plugin.setDependency((String) pluginObj.get("dependency"));
 			    }
-				notifySubscribers(plugin.getName(),Status.AVAILABLE.value());
-
 			    descriptionsPlugins.put(plugin.getName(), plugin);
 			}
 		    
@@ -162,12 +160,20 @@ public class Loader implements Subject{
 	
 	public static void main(String[] args) {
 		Loader loader = Loader.getInstance();
-		loader.getDescriptions();
-		
-		System.out.println(loader.descriptionsPlugins.toString());
-		
+		loader.getDescriptions();	
 		loader.autoRun();
-		// maj moniteur
+		loader.notifyInit();
+		
+	}
+
+	/**
+	 * Notifie les plugins disponibles dans la config non chargés à l'initialisation de la plateforme (les chargés ont déjà été notifiés dans autorun)
+	 */
+	private void notifyInit() {
+		for (DescripteurPlugin d : descriptionsPlugins.values()){
+			if(!d.isLoaded())
+				notifySubscribers(d.getName(),Status.AVAILABLE.value());
+		}
 		
 	}
 
