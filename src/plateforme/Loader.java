@@ -39,7 +39,7 @@ public class Loader implements Subject{
 	private static Loader instance = new Loader();
 	
 	public Loader() {
-		
+		suscribers = new ArrayList<Observer>();
 	}
 	
 	public static Loader getInstance() {
@@ -83,6 +83,7 @@ public class Loader implements Subject{
 			    if(pluginObj.get("dependency")!=null || pluginObj.get("dependency")!="") {
 			    	plugin.setDependency((String) pluginObj.get("dependency"));
 			    }
+				notifySubscribers(plugin.getName(),Status.AVAILABLE.value());
 
 			    descriptionsPlugins.put(plugin.getName(), plugin);
 			}
@@ -117,6 +118,7 @@ public class Loader implements Subject{
 	 * @return une instance du plugin demandé
 	 */
 	public static Object loadPluginsFor(DescripteurPlugin descripteurPlugin ) {
+		Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.ASKED.value());
 		Class c;
 		Constructor constructor;
 		Object pluggin= null;
@@ -129,12 +131,12 @@ public class Loader implements Subject{
 			}
 			pluggin = constructor.newInstance();
 			Loader.getInstance().getDescriptionsPlugins().get(descripteurPlugin.getName()).setLoaded(true);
+			Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.LOADED.value());
+
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		// Monitor.addPluggin()
-		
+			Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.FAILURE.value());
+		}		
 		return pluggin;
 	}
 	
@@ -161,6 +163,7 @@ public class Loader implements Subject{
 	public static void main(String[] args) {
 		Loader loader = Loader.getInstance();
 		loader.getDescriptions();
+		
 		System.out.println(loader.descriptionsPlugins.toString());
 		
 		loader.autoRun();
@@ -183,11 +186,10 @@ public class Loader implements Subject{
 	}
 
 	@Override
-	public void notifySubscribers() {
+	public void notifySubscribers(String name, String status) {
 		for(Observer suscriber : this.suscribers) {
-           //suscriber.update();
+           suscriber.update(name,status);
         }
-		
 	}
 
 

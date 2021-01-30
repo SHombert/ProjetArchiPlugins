@@ -8,7 +8,7 @@
 			
 		},
 		{
-			"name":"Moniteur de pluggins",
+			"name":"Moniteur de plugins",
 			"className":"tiers.Monitor",
 			"autorun":"true",
 			"params":[
