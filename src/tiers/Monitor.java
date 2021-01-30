@@ -1,27 +1,22 @@
 package tiers;
 
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
-import plateforme.DescripteurPlugin;
 import plateforme.Loader;
 import plateforme.Observer;
 
@@ -31,8 +26,10 @@ public class Monitor extends JFrame implements Runnable, Observer {
 	
 	
 	JLabel labelList;
-	JLabel historic;
+	//JLabel historic;
 	
+	JList <String> historic;
+	DefaultListModel <String> dlm;
 
 	DefaultTableModel dtm;
 	JTable table;
@@ -46,13 +43,17 @@ public class Monitor extends JFrame implements Runnable, Observer {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));	
 		
 		labelList = new JLabel("Liste des plugins chargés : ",SwingConstants.LEFT);
-		historic = new JLabel();
+		
+		dlm = new DefaultListModel<String>();
+		historic = new JList<>(dlm);
 		String[] entetes = {"Plugin","Status"};
 		dtm = new DefaultTableModel(entetes,0);
 		table = new JTable(dtm);
-		
+        JScrollPane scrollPane = new JScrollPane(table);
+        
 		add(labelList);
-		add(table);
+		add(scrollPane);
+		add(historic);
 		
 	}
 	
@@ -67,6 +68,9 @@ public class Monitor extends JFrame implements Runnable, Observer {
 	@Override
 	public void update(String name, String status) {
 		listePlugins.put(name,status);
+		if(!status.equals("Disponible dans la config")) {
+			addHistoricLine(LocalDate.now().toString(),name,status);
+		}
 		refreshTable();
 		revalidate();
 		repaint();
@@ -74,7 +78,22 @@ public class Monitor extends JFrame implements Runnable, Observer {
 	}
 	
 	private void addHistoricLine(String time, String plugin, String status) {
+		String newLine = time;
+		switch (status) {
+			case "Chargé" : 
+				newLine+=" : Le plugin " + plugin +" a été chargé.";
+				break;
+			case "Echec du chargement" :
+				newLine+="Le chargement du plugin "+ plugin + " a échoué.";
+				break;
+			case "Demande de chargement":
+				newLine+="Le chargement du plugin "+ plugin + " a été demandé.";
+				break;
+			default:
+				;	
 		
+		}
+		dlm.addElement(newLine);
 	}
 	
 	/**
