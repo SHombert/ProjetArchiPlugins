@@ -20,64 +20,78 @@ import data.RDV;
 
 public class LoadFromFile implements ILoadRDVs {
 
-	/*public static void main(String [] args) throws IOException, ParseException {
-		List<RDV> listRDV = getRdvList("C:\\Users\\Utilisateur\\Desktop\\MASTER 2\\ARCHI LOG\\ProjetArchiPlugins\\src\\tiers\\rdv_file.txt");
+	private List<Medecin> medecins;
+	private List<Patient> patients;
+	
+	
+	public LoadFromFile() {
+		super();
+		this.medecins = new ArrayList<>();
+		this.patients = new ArrayList<>();
+	}
 
-		for (RDV rdv : listRDV) {
-		    System.out.println(rdv); 
-		}
-
-	}*/
-
-
-		public List<RDV> getRdvList(String filename){
-
-
-
-			List<RDV> rdvList = new ArrayList();
-
-			File file = new File(filename);
-			BufferedReader br;
-			try {
-				br = new BufferedReader(new FileReader(file));
-				String line;
-				while((line = br.readLine()) != null) {
-					//construction des objects RDV
-					String  dateString = line.split(",")[0];
-
-//					DateFormat format = new SimpleDateFormat("dd-MM-yy");
-//					String date = format.parse(dateString);
-
-					String  horaire = line.split(",")[1];
-					String  motif = line.split(",")[2];
+	public List<RDV> getRdvList(String filename){
 
 
-					String  patientString = line.split(",")[3];
-					Patient patient = new Patient();
-					String [] splittedPatient = patientString.split(" ");
-					patient.setNom(splittedPatient[0]);
-					patient.setPrenom(splittedPatient[1]);
 
-					String  medecinString = line.split(",")[4];
-					Medecin medecin = new Medecin();
-					String [] splittedMedecin = medecinString.split(" ");
-					medecin.setNom(splittedMedecin[0]);
-					medecin.setPrenom(splittedMedecin[1]);
+		List<RDV> rdvList = new ArrayList();
 
-					RDV rdv = new RDV(dateString, horaire, motif, patient, medecin);
+		File file = new File(filename);
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(file));
+			String line;
+			while((line = br.readLine()) != null) {
+				//construction des objects RDV
+				String  dateString = line.split(",")[0];
 
-					rdvList.add(rdv);			  
+				//					DateFormat format = new SimpleDateFormat("dd-MM-yy");
+				//					String date = format.parse(dateString);
 
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				String  horaire = line.split(",")[1];
+				String  motif = line.split(",")[2];
+
+
+				String  patientString = line.split(",")[3];
+				Patient patient = new Patient();
+				String [] splittedPatient = patientString.split(" ");
+				patient.setNom(splittedPatient[0]);
+				patient.setPrenom(splittedPatient[1]);
+				patients.add(patient);
+
+				String  medecinString = line.split(",")[4];
+				Medecin medecin = new Medecin();
+				String [] splittedMedecin = medecinString.split(" ");
+				medecin.setNom(splittedMedecin[0]);
+				medecin.setPrenom(splittedMedecin[1]);
+				medecins.add(medecin);
+
+				RDV rdv = new RDV(dateString, horaire, motif, patient, medecin);
+
+				rdvList.add(rdv);			  
+
 			}
-
-
-			return rdvList;
-
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+
+		return rdvList;
+
+	}
+
+	@Override
+	public List<Medecin> getMedecins() {
+		// TODO Auto-generated method stub
+		return medecins;
+	}
+
+	@Override
+	public List<Patient> getPatients() {
+		// TODO Auto-generated method stub
+		return patients;
+	}
 
 
 

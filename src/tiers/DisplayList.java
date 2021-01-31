@@ -1,44 +1,34 @@
 package tiers;
 
-import java.awt.Dimension;
-import java.io.IOException;
-import java.text.ParseException;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JComponent;
 import javax.swing.JList;
-import javax.swing.event.*;
+
 
 import appli.IDisplay;
 import data.RDV;
 
-public class DisplayList extends JFrame implements IDisplay {
-	  
-  
-    //main class 
-   /* public static void main(String[] args) throws IOException, ParseException 
-    { 
-    	List<RDV> listRDV = LoadFromFile.getRdvList("C:\\Users\\Utilisateur\\Desktop\\MASTER 2\\ARCHI LOG\\ProjetArchiPlugins\\src\\tiers\\rdv_file.txt");
-    	DisplayList dl = new DisplayList();
-    	dl.displayRDVList(listRDV);
-    } */
-    
-	public void displayRDVList(List<RDV> rdvList) {
-    	
-    	RDV [] rdvArray = new RDV[rdvList.size()];
+public class DisplayList  implements IDisplay {
+
+	private JList<RDV> rdvJList;
+
+	public JComponent displayRDVList(List<RDV> rdvList) {
+
+		RDV [] rdvArray = new RDV[rdvList.size()];
 		for (int i = 0; i < rdvList.size(); i++) 
-		 rdvArray[i] = rdvList.get(i);
+			rdvArray[i] = rdvList.get(i);
 
-         JList<RDV> rdvJList = new JList<>(rdvArray);
-         rdvJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		rdvJList= new JList<>(rdvArray);
+		rdvJList.setForeground(Color.CYAN);
+		rdvJList.setFont(new Font("Arial", Font.PLAIN, 15));
+		rdvJList.setSize(500, 400);
+		rdvJList.setLocation(20, 150);
+		return rdvJList;
+	}   
 
-         getContentPane().add(rdvJList);
-
-         pack();
-         setMinimumSize(new Dimension(500, 300));
-         setVisible(true);
-    }   
- 
 
 }

@@ -38,6 +38,14 @@
 			"params":["java.util.List","java.util.List"],
 			"dependency":"Application RDV médicaux",
 		}
+		,
+		{
+			"name":"Affichage en tableau",
+			"className":"tiers.DisplayWonderfullList",
+			"autorun":"false",
+			"params":[],
+			"dependency":"Application RDV médicaux"
+		}
 	]
 
 	

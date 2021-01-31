@@ -29,7 +29,7 @@ import appli.IDisplay;
 
 
 
-public class Loader implements Subject{
+public class Loader implements Subject {
 	
 	static final String CONFIG ="config.json";
 	List<Observer> suscribers;
@@ -55,7 +55,7 @@ public class Loader implements Subject{
 	}
 	
 	/**
-	 * Methode privÃ©e utilisÃ©e au lancement de la plateforme pour charger les plugins du fichier de config
+	 * Methode privée utilisée au lancement de la plateforme pour charger les plugins du fichier de config
 	 */
 	private void getDescriptions() {
 		descriptionsPlugins = new HashMap<String,DescripteurPlugin>();
@@ -95,9 +95,9 @@ public class Loader implements Subject{
 	}
 	
 	/**
-	 * MÃ©thode qui renvoit les plugins dÃ©pendants du plugin dont le nom est passÃ© en paramÃ¨tre (dependency)
-	 * UtilisÃ©e pour ne renvoyer aux plugins qui les demandent uniquement les plugins qui les concernent
-	 * @return descripteurs : map de key,value, la clÃ© est le nom du plugin et la valeur de descripteur de plugin correspondant
+	 * Méthode qui renvoit les plugins dépendants du plugin dont le nom est passé en paramètre (dependency)
+	 * Utilisée pour ne renvoyer aux plugins qui les demandent uniquement les plugins qui les concernent
+	 * @return descripteurs : map de key,value, la clé est le nom du plugin et la valeur de descripteur de plugin correspondant
 	 */
 	public static HashMap<String, DescripteurPlugin> getDescripteurs(String dependency) {
 		HashMap<String, DescripteurPlugin> descripteurs = new HashMap<String, DescripteurPlugin>();
@@ -111,12 +111,12 @@ public class Loader implements Subject{
 	}
 
 	/**
-	 * Methode qui instancie un plugin a partir du descripeur passÃ© en parametre, utilise le constructeur par dÃ©faut avec ou sans arguments 
-	 * Les arguments du constructeurs doivent Ãªtre prÃ©cisÃ©s dans le descripteur de plugin
+	 * Methode qui instancie un plugin a partir du descripeur passé en parametre, utilise le constructeur par défaut avec ou sans arguments 
+	 * Les arguments du constructeurs doivent être précisés dans le descripteur de plugin
 	 * @param descripteurPlugin : descripteur correspondant au plugin que l'on veut charger
-	 * @return une instance du plugin demandÃ©
+	 * @return une instance du plugin demandé
 	 */
-	public static Object loadPluginsFor(DescripteurPlugin descripteurPlugin ) {
+	public static Object loadPluginsFor(DescripteurPlugin descripteurPlugin , Object [] args) {
 		Class c;
 		Constructor constructor;
 		Object pluggin= null;
@@ -127,7 +127,7 @@ public class Loader implements Subject{
 			}else {
 				constructor = c.getConstructor(null);
 			}
-			pluggin = constructor.newInstance();
+			pluggin = constructor.newInstance(args);
 			Loader.getInstance().getDescriptionsPlugins().get(descripteurPlugin.getName()).setLoaded(true);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -140,14 +140,13 @@ public class Loader implements Subject{
 	
 	
 	/**
-	 * Parcourt les descripteurs de pluggins et lance la mÃ©thode run sur ceux qui sont taggÃ©s "autorun"
+	 * Parcourt les descripteurs de pluggins et lance la méthode run sur ceux qui sont taggés "autorun"
 	 */
-	
 	private void autoRun() {
 		for(DescripteurPlugin d : descriptionsPlugins.values()) {
 			if(d.isAutoRun()) {
 				try {
-					Thread t = new Thread ((Runnable) Loader.loadPluginsFor(d));
+					Thread t = new Thread ((Runnable) Loader.loadPluginsFor(d, null));
 					t.start();
 				} catch ( SecurityException | IllegalArgumentException e) {
 					// TODO Auto-generated catch block
