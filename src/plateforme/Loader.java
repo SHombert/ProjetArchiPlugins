@@ -120,6 +120,7 @@ public class Loader implements Subject {
 				constructor = c.getConstructor(null);
 			}
 			pluggin = constructor.newInstance(args);
+			
 			Loader.getInstance().getDescriptionsPlugins().get(descripteurPlugin.getName()).setLoaded(true);
 			Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.LOADED.value());
 

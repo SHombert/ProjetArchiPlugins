@@ -25,7 +25,7 @@ import plateforme.Loader;
 
 
 public class Appli extends JFrame implements Runnable , ActionListener{
-	private static final String APPNAME = "Application RDV m�dicaux";
+	private static final String APPNAME = "Application RDV médicaux";
 	IDisplay display;
 	HashMap<String, DescripteurPlugin> descriptionPluginsDispos;
 	ILoadRDVs loadRdv;
@@ -39,30 +39,24 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 	private JLabel frameTitle; 
 	private JLabel listTitle; 
 	private JButton create;
+	private JButton switchDisplayList;
+	private JButton switchDisplayTable;
 	private JComponent displayComponent;
 
 	public Appli()  {
 		setTitle("GESTION DE RDV MEDICAUX"); 
 		setBounds(300, 90, 900, 700); 
 		setResizable(false); 
+		c = getContentPane(); 
+		setLayout(null); 
 
-
-
-		// recuperer descripteurs
-		System.out.println("Lancement de l'appli : constructeur");
 		descriptionPluginsDispos = Loader.getDescripteurs(APPNAME);
-		//display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"));// load la liste
 		display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en tableau"), null);// load la liste dans un tableau
 		loadRdv =  (ILoadRDVs) Loader.loadPluginsFor(descriptionPluginsDispos.get("Chargement par fichiers"), null);
 
-
 		rdvs = (ArrayList<RDV>) loadRdv.getRdvList("src/tiers/rdv_file.txt");
-
 		medecins = (ArrayList<Medecin>)loadRdv.getMedecins();
 		patients = (ArrayList<Patient>)loadRdv.getPatients();
-
-		// load des infos � partir du fichier
-
 	}
 
 	public void run() {
@@ -73,20 +67,17 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		setVisible(true);
 	}
 
-	public void output() { // refactor --> extract
+	public void output() {
 		if(display == null) {
-			//display = Loader.getDisplayFor(descriptionDisplayDispos.get(0));
-
+			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en tableau"),null);
 		}  
-
-		// FIXME : charger display si n�cessaire (si on en a pas un on le charge) : par d�faut prendre le premier trouv�
 		displayComponent = display.displayRDVList(rdvs);
-
-
+//		if(!c.isAncestorOf(displayComponent)) {
+		c.add(displayComponent);
+//		}
 	}
+	
 	private void setFrameContent() {
-		c = getContentPane(); 
-		c.setLayout(null); 
 
 		frameTitle = new JLabel("BIENVENUE SUR E-RDV"); 
 		frameTitle.setFont(new Font("Arial", Font.PLAIN, 30)); 
@@ -106,32 +97,67 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		//create.setOpaque(true);
 		create.setBorderPainted(false);
 		create.setFont(new Font("Arial", Font.PLAIN, 15)); 
-		create.setSize(150, 20); 
+		create.setSize(175, 20); 
 		create.setLocation(650, 150); 
 		create.addActionListener(this); 
 		c.add(create);
-
-		c.add(displayComponent);
-
+		
+		switchDisplayList = new JButton("Afficher en liste"); 
+		switchDisplayList.setForeground(Color.WHITE);
+		switchDisplayList.setBackground(Color.BLUE);
+		//create.setOpaque(true);
+		switchDisplayList.setBorderPainted(false);
+		switchDisplayList.setFont(new Font("Arial", Font.PLAIN, 15)); 
+		switchDisplayList.setSize(175, 20); 
+		switchDisplayList.setLocation(650 , 100); 
+		switchDisplayList.addActionListener(this); 
+		c.add(switchDisplayList);
+		
+		switchDisplayTable = new JButton("Afficher en tableau"); 
+		switchDisplayTable.setForeground(Color.WHITE);
+		switchDisplayTable.setBackground(Color.BLUE);
+		//create.setOpaque(true);
+		switchDisplayTable.setBorderPainted(false);
+		switchDisplayTable.setFont(new Font("Arial", Font.PLAIN, 15)); 
+		switchDisplayTable.setSize(175, 20); 
+		switchDisplayTable.setLocation(650 , 125); 
+		switchDisplayTable.addActionListener(this); 
+		c.add(switchDisplayTable);
+		
 	}
 
 	public void actionPerformed(ActionEvent e) { 
 		if (e.getSource() == this.create) {  
-
-			System.out.println("Create clicked");	
-
+			System.out.println("Create clicked");
 			//dispose();
 			Object [] args = {this.medecins, this.patients }; 	  
-			createRDV = (ICreateRDV)Loader.loadPluginsFor(descriptionPluginsDispos.get("Cr�ation formulaire"), args);
-			rdvs.add(createRDV.getNewRdv());
-
+			createRDV = (ICreateRDV)Loader.loadPluginsFor(descriptionPluginsDispos.get("Création formulaire"), args);
+			RDV newRDV = createRDV.getNewRdv();
+			if(newRDV != null)
+				rdvs.add(newRDV);
+			c.remove(displayComponent);
 			output();
-
-			revalidate();
-			repaint();
-
-
-		} 
+			c.revalidate();
+			c.repaint();
+		}
+		
+		if (e.getSource() == this.switchDisplayList) { 
+			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"), null);
+			c.remove(displayComponent);
+			output();
+			System.out.println(displayComponent.getClass());
+			c.revalidate();
+			c.repaint();
+		}
+		
+		if (e.getSource() == this.switchDisplayTable) { 
+			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en tableau"), null);
+			c.remove(displayComponent);
+			output();
+			System.out.println(displayComponent.getClass());
+			c.revalidate();
+			c.repaint();
+		}
 	}
 
 

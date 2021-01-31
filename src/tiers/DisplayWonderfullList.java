@@ -1,33 +1,17 @@
 package tiers;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
+
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
+
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
 
 import appli.IDisplay;
-import appli.IDisplayWonderfull;
-import data.Medecin;
-import data.Patient;
 import data.RDV;
 import tiers.utils.DateHeaderRenderer;
 import tiers.utils.DefaultHeaderRenderer;
@@ -37,11 +21,9 @@ import tiers.utils.PatientHeaderRenderer;
 public class DisplayWonderfullList implements IDisplay{
 	  
   
-		private JTable table;
+	private JTable table;
     
 	public DisplayWonderfullList() throws HeadlessException {
-		super();
-		
 		 
 	}
 
@@ -54,7 +36,7 @@ public class DisplayWonderfullList implements IDisplay{
 
 		 		 
  		
- 		String[] columnNames = new String[] {"N°","DATE", "HEURE", "MOTIF", "MEDECIN", "PATIENT"};
+ 		String[] columnNames = new String[] {"N","DATE", "HEURE", "MOTIF", "MEDECIN", "PATIENT"};
  		DefaultTableModel model = new DefaultTableModel(columnNames, 0);
  		for (int i = 0; i < rdvList.size(); i++) {
  			 model.addRow( new Object[]{ 

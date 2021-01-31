@@ -23,7 +23,7 @@ public class DisplayList  implements IDisplay {
 			rdvArray[i] = rdvList.get(i);
 
 		rdvJList= new JList<>(rdvArray);
-		rdvJList.setForeground(Color.CYAN);
+		rdvJList.setForeground(Color.BLUE);
 		rdvJList.setFont(new Font("Arial", Font.PLAIN, 15));
 		rdvJList.setSize(500, 400);
 		rdvJList.setLocation(20, 150);
