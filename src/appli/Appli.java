@@ -17,7 +17,9 @@ public class Appli implements Runnable {
 	HashMap<String, DescripteurPlugin> descriptionPluginsDispos;
 	ILoadRDVs loadRdv;
 	ArrayList<RDV> rdvs;
+	
 	// ICreateRDV createRDV;
+	//JComponent list;
 
 	public Appli() {
 		// recuperer descripteurs
@@ -27,9 +29,9 @@ public class Appli implements Runnable {
 		loadRdv =  (ILoadRDVs) Loader.loadPluginsFor(descriptionPluginsDispos.get("Chargement par fichiers"));
 		
 		rdvs = (ArrayList<RDV>) loadRdv.getRdvList("src/tiers/rdv_file.txt");
-		
-		// load des infos à partir du fichier
-		
+				
+		// Construction de la fenetre 
+		//add(list);
 	}
 	
 	public void run() {

@@ -1,31 +1,21 @@
 package plateforme;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import appli.IDisplay;
 
 
 
@@ -187,8 +177,9 @@ public class Loader implements Subject{
 
 	@Override
 	public void removeSubscriber(Observer observer) {
-		// TODO Auto-generated method stub
-		
+		if (this.suscribers.contains(observer)) {
+			this.suscribers.remove(observer);
+		}
 	}
 
 	@Override
