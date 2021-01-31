@@ -1,31 +1,21 @@
 package plateforme;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import appli.IDisplay;
 
 
 
@@ -39,7 +29,7 @@ public class Loader implements Subject {
 	private static Loader instance = new Loader();
 	
 	public Loader() {
-		
+		suscribers = new ArrayList<Observer>();
 	}
 	
 	public static Loader getInstance() {
@@ -55,7 +45,7 @@ public class Loader implements Subject {
 	}
 	
 	/**
-	 * Methode privée utilisée au lancement de la plateforme pour charger les plugins du fichier de config
+	 * Methode privï¿½e utilisï¿½e au lancement de la plateforme pour charger les plugins du fichier de config
 	 */
 	private void getDescriptions() {
 		descriptionsPlugins = new HashMap<String,DescripteurPlugin>();
@@ -83,7 +73,6 @@ public class Loader implements Subject {
 			    if(pluginObj.get("dependency")!=null || pluginObj.get("dependency")!="") {
 			    	plugin.setDependency((String) pluginObj.get("dependency"));
 			    }
-
 			    descriptionsPlugins.put(plugin.getName(), plugin);
 			}
 		    
@@ -95,9 +84,9 @@ public class Loader implements Subject {
 	}
 	
 	/**
-	 * Méthode qui renvoit les plugins dépendants du plugin dont le nom est passé en paramètre (dependency)
-	 * Utilisée pour ne renvoyer aux plugins qui les demandent uniquement les plugins qui les concernent
-	 * @return descripteurs : map de key,value, la clé est le nom du plugin et la valeur de descripteur de plugin correspondant
+	 * Mï¿½thode qui renvoit les plugins dï¿½pendants du plugin dont le nom est passï¿½ en paramï¿½tre (dependency)
+	 * Utilisï¿½e pour ne renvoyer aux plugins qui les demandent uniquement les plugins qui les concernent
+	 * @return descripteurs : map de key,value, la clï¿½ est le nom du plugin et la valeur de descripteur de plugin correspondant
 	 */
 	public static HashMap<String, DescripteurPlugin> getDescripteurs(String dependency) {
 		HashMap<String, DescripteurPlugin> descripteurs = new HashMap<String, DescripteurPlugin>();
@@ -111,12 +100,15 @@ public class Loader implements Subject {
 	}
 
 	/**
-	 * Methode qui instancie un plugin a partir du descripeur passé en parametre, utilise le constructeur par défaut avec ou sans arguments 
-	 * Les arguments du constructeurs doivent être précisés dans le descripteur de plugin
+	 * Methode qui instancie un plugin a partir du descripeur passï¿½ en parametre, utilise le constructeur par dï¿½faut avec ou sans arguments 
+	 * Les arguments du constructeurs doivent ï¿½tre prï¿½cisï¿½s dans le descripteur de plugin
 	 * @param descripteurPlugin : descripteur correspondant au plugin que l'on veut charger
-	 * @return une instance du plugin demandé
+	 * @return une instance du plugin demandï¿½
 	 */
+	
+		
 	public static Object loadPluginsFor(DescripteurPlugin descripteurPlugin , Object [] args) {
+	    Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.ASKED.value());
 		Class c;
 		Constructor constructor;
 		Object pluggin= null;
@@ -129,18 +121,18 @@ public class Loader implements Subject {
 			}
 			pluggin = constructor.newInstance(args);
 			Loader.getInstance().getDescriptionsPlugins().get(descripteurPlugin.getName()).setLoaded(true);
+			Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.LOADED.value());
+
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		// Monitor.addPluggin()
-		
+			Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.FAILURE.value());
+		}		
 		return pluggin;
 	}
 	
 	
 	/**
-	 * Parcourt les descripteurs de pluggins et lance la méthode run sur ceux qui sont taggés "autorun"
+	 * Parcourt les descripteurs de pluggins et lance la mï¿½thode run sur ceux qui sont taggï¿½s "autorun"
 	 */
 	private void autoRun() {
 		for(DescripteurPlugin d : descriptionsPlugins.values()) {
@@ -159,11 +151,20 @@ public class Loader implements Subject {
 	
 	public static void main(String[] args) {
 		Loader loader = Loader.getInstance();
-		loader.getDescriptions();
-		System.out.println(loader.descriptionsPlugins.toString());
-		
+		loader.getDescriptions();	
 		loader.autoRun();
-		// maj moniteur
+		loader.notifyInit();
+		
+	}
+
+	/**
+	 * Notifie les plugins disponibles dans la config non chargÃ©s Ã  l'initialisation de la plateforme (les chargÃ©s ont dÃ©jÃ  Ã©tÃ© notifiÃ©s dans autorun)
+	 */
+	private void notifyInit() {
+		for (DescripteurPlugin d : descriptionsPlugins.values()){
+			if(!d.isLoaded())
+				notifySubscribers(d.getName(),Status.AVAILABLE.value());
+		}
 		
 	}
 
@@ -177,16 +178,16 @@ public class Loader implements Subject {
 
 	@Override
 	public void removeSubscriber(Observer observer) {
-		// TODO Auto-generated method stub
-		
+		if (this.suscribers.contains(observer)) {
+			this.suscribers.remove(observer);
+		}
 	}
 
 	@Override
-	public void notifySubscribers() {
+	public void notifySubscribers(String name, String status) {
 		for(Observer suscriber : this.suscribers) {
-           //suscriber.update();
+           suscriber.update(name,status);
         }
-		
 	}
 
 

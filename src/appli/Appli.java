@@ -25,7 +25,7 @@ import plateforme.Loader;
 
 
 public class Appli extends JFrame implements Runnable , ActionListener{
-	private static final String APPNAME = "Application RDV médicaux";
+	private static final String APPNAME = "Application RDV mï¿½dicaux";
 	IDisplay display;
 	HashMap<String, DescripteurPlugin> descriptionPluginsDispos;
 	ILoadRDVs loadRdv;
@@ -61,7 +61,7 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		medecins = (ArrayList<Medecin>)loadRdv.getMedecins();
 		patients = (ArrayList<Patient>)loadRdv.getPatients();
 
-		// load des infos à  partir du fichier
+		// load des infos ï¿½ partir du fichier
 
 	}
 
@@ -79,7 +79,7 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 
 		}  
 
-		// FIXME : charger display si nécessaire (si on en a pas un on le charge) : par défaut prendre le premier trouvé
+		// FIXME : charger display si nï¿½cessaire (si on en a pas un on le charge) : par dï¿½faut prendre le premier trouvï¿½
 		displayComponent = display.displayRDVList(rdvs);
 
 
@@ -94,13 +94,13 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		frameTitle.setLocation(100, 30); 
 		c.add(frameTitle);
 
-		listTitle = new JLabel("Liste des RDV programmés"); 
+		listTitle = new JLabel("Liste des RDV programmï¿½s"); 
 		listTitle.setFont(new Font("Arial", Font.PLAIN, 20)); 
 		listTitle.setSize(500, 20); 
 		listTitle.setLocation(100, 100); 
 		c.add(listTitle);
 
-		create = new JButton("Créer un RDV"); 
+		create = new JButton("Crï¿½er un RDV"); 
 		create.setForeground(Color.WHITE);
 		create.setBackground(Color.BLUE);
 		//create.setOpaque(true);
@@ -122,7 +122,7 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 
 			//dispose();
 			Object [] args = {this.medecins, this.patients }; 	  
-			createRDV = (ICreateRDV)Loader.loadPluginsFor(descriptionPluginsDispos.get("Création formulaire"), args);
+			createRDV = (ICreateRDV)Loader.loadPluginsFor(descriptionPluginsDispos.get("Crï¿½ation formulaire"), args);
 			rdvs.add(createRDV.getNewRdv());
 
 			output();
