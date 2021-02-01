@@ -1,5 +1,6 @@
 package tiers;
 
+import java.awt.Dimension;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,11 +48,10 @@ public class Monitor extends JFrame implements Runnable, Observer {
 		dtm = new DefaultTableModel(entetes,0);
 		table = new JTable(dtm);
         JScrollPane scrollPane = new JScrollPane(table);
-        
+        scrollPane.setMinimumSize(new Dimension(200,150));
 		add(labelList);
 		add(scrollPane);
 		add(historic);
-		
 	}
 	
 	public void run() {

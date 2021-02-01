@@ -73,7 +73,6 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		}  
 		displayComponent = display.displayRDVList(rdvs);
 		c.add(displayComponent);
-//		}
 	}
 	
 	private void setFrameContent() {

@@ -4,7 +4,7 @@
 			"className":"appli.Appli",
 			"autorun":"true",
 			"params":[],
-			"requirements":["Affichage en liste","Chargement par fichier"],
+			"requirements":["Affichage en tableau","Chargement par fichier"],
 			
 		},
 		{
