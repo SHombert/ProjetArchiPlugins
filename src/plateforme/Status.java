@@ -2,7 +2,7 @@ package plateforme;
 
 public enum Status {
 	FAILURE("Echec du chargement"),
-	LOADED("Chargé"),
+	LOADED("Charge"),
 	ASKED("Demande de chargement"),
 	AVAILABLE("Disponible dans la config")
 	;

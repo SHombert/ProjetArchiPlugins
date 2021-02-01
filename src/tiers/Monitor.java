@@ -24,9 +24,7 @@ public class Monitor extends JFrame implements Runnable, Observer {
 	Map<String,String> listePlugins;
 	
 	
-	JLabel labelList;
-	//JLabel historic;
-	
+	JLabel labelList;	
 	JList <String> historic;
 	DefaultListModel <String> dlm;
 
@@ -41,7 +39,7 @@ public class Monitor extends JFrame implements Runnable, Observer {
 		setBounds(300, 90, 400, 500);
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));	
 		
-		labelList = new JLabel("Liste des plugins chargés : ",SwingConstants.LEFT);
+		labelList = new JLabel("Liste des plugins charges : ",SwingConstants.LEFT);
 		
 		dlm = new DefaultListModel<String>();
 		historic = new JList<>(dlm);
@@ -79,14 +77,14 @@ public class Monitor extends JFrame implements Runnable, Observer {
 	private void addHistoricLine(String time, String plugin, String status) {
 		String newLine = time;
 		switch (status) {
-			case "Chargé" : 
-				newLine+=" : Le plugin " + plugin +" a été chargé.";
+			case "Charge" : 
+				newLine+=" : Le plugin " + plugin +" a ete charge.";
 				break;
 			case "Echec du chargement" :
-				newLine+="Le chargement du plugin "+ plugin + " a échoué.";
+				newLine+=" : Le chargement du plugin "+ plugin + " a echoue.";
 				break;
 			case "Demande de chargement":
-				newLine+="Le chargement du plugin "+ plugin + " a été demandé.";
+				newLine+=" : Le chargement du plugin "+ plugin + " a ete demande.";
 				break;
 			default:
 				;	

@@ -25,7 +25,7 @@ import plateforme.Loader;
 
 
 public class Appli extends JFrame implements Runnable , ActionListener{
-	private static final String APPNAME = "Application RDV médicaux";
+	private static final String APPNAME = "Application RDV medicaux";
 	IDisplay display;
 	HashMap<String, DescripteurPlugin> descriptionPluginsDispos;
 	ILoadRDVs loadRdv;
@@ -72,26 +72,24 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en tableau"),null);
 		}  
 		displayComponent = display.displayRDVList(rdvs);
-//		if(!c.isAncestorOf(displayComponent)) {
 		c.add(displayComponent);
 //		}
 	}
 	
 	private void setFrameContent() {
-
 		frameTitle = new JLabel("BIENVENUE SUR E-RDV"); 
 		frameTitle.setFont(new Font("Arial", Font.PLAIN, 30)); 
 		frameTitle.setSize(600, 30); 
 		frameTitle.setLocation(100, 30); 
 		c.add(frameTitle);
 
-		listTitle = new JLabel("Liste des RDV programm�s"); 
+		listTitle = new JLabel("Liste des RDV programmes"); 
 		listTitle.setFont(new Font("Arial", Font.PLAIN, 20)); 
 		listTitle.setSize(500, 20); 
 		listTitle.setLocation(100, 100); 
 		c.add(listTitle);
 
-		create = new JButton("Cr�er un RDV"); 
+		create = new JButton("Creer un RDV"); 
 		create.setForeground(Color.WHITE);
 		create.setBackground(Color.BLUE);
 		//create.setOpaque(true);
@@ -131,7 +129,7 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 			System.out.println("Create clicked");
 			//dispose();
 			Object [] args = {this.medecins, this.patients }; 	  
-			createRDV = (ICreateRDV)Loader.loadPluginsFor(descriptionPluginsDispos.get("Création formulaire"), args);
+			createRDV = (ICreateRDV)Loader.loadPluginsFor(descriptionPluginsDispos.get("Creation formulaire"), args);
 			RDV newRDV = createRDV.getNewRdv();
 			if(newRDV != null)
 				rdvs.add(newRDV);
@@ -145,7 +143,6 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"), null);
 			c.remove(displayComponent);
 			output();
-			System.out.println(displayComponent.getClass());
 			c.revalidate();
 			c.repaint();
 		}
@@ -154,7 +151,6 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en tableau"), null);
 			c.remove(displayComponent);
 			output();
-			System.out.println(displayComponent.getClass());
 			c.revalidate();
 			c.repaint();
 		}

@@ -95,8 +95,7 @@ public class LoadFromForm extends JFrame implements ICreateRDV , ActionListener{
 	// with default values. 
 	public LoadFromForm(List<Medecin> medecins, List<Patient> patients) { 
 		
-
-		setTitle("Création de RDV MEDICAL"); 
+		setTitle("Crï¿½ation de RDV MEDICAL"); 
 		setBounds(300, 90, 900, 600);  
 		setResizable(false); 
 
@@ -265,7 +264,7 @@ public class LoadFromForm extends JFrame implements ICreateRDV , ActionListener{
 				
 				setRdv(new RDV(dateS, horaire, motifS, patientS, medecinS));
 				
-				//Ajouter le nouvel élément à la fin du fichier texte initial
+				//Ajouter le nouvel ï¿½lï¿½ment ï¿½ la fin du fichier texte initial
 				String filename = "src/tiers/added_rdv_file.txt";
 				try(FileWriter fw = new FileWriter(filename, true);
 					    BufferedWriter bw = new BufferedWriter(fw);
@@ -274,7 +273,7 @@ public class LoadFromForm extends JFrame implements ICreateRDV , ActionListener{
 					    // ecriture du nouveau rdv
 					    out.println(this.getNewRdv());
 					    System.out.println("Added successfully to the file");
-					    res.setText("Rendez créé avec Succès.."); 
+					    res.setText("Rendez crï¿½ï¿½ avec Succï¿½s.."); 
 					} catch (IOException e1) {
 					    System.out.println("Something go wrong with appendind the file texte : "+e1.getMessage());
 					}
@@ -299,7 +298,7 @@ public class LoadFromForm extends JFrame implements ICreateRDV , ActionListener{
 
 	@Override
 	public RDV getNewRdv() {
-				
+		
 		return this.rdv;
 	}
 }

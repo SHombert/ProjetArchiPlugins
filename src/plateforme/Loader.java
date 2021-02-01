@@ -163,8 +163,14 @@ public class Loader implements Subject {
 	 */
 	private void notifyInit() {
 		for (DescripteurPlugin d : descriptionsPlugins.values()){
-			if(!d.isLoaded())
+			if(!d.isLoaded()) {
 				notifySubscribers(d.getName(),Status.AVAILABLE.value());
+			}
+			else {
+				if(!d.getName().equals("Moniteur de plugins"))
+					notifySubscribers(d.getName(),Status.LOADED.value());
+
+			}
 		}
 		
 	}

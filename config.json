@@ -1,6 +1,6 @@
 [
 		{
-			"name":"Application RDV médicaux",
+			"name":"Application RDV medicaux",
 			"className":"appli.Appli",
 			"autorun":"true",
 			"params":[],
@@ -21,22 +21,22 @@
 			"autorun":"false",
 			"params":[
 				],
-			"dependency":"Application RDV médicaux",
+			"dependency":"Application RDV medicaux",
 		},
 		{
 			"name":"Chargement par fichiers",
 			"className":"tiers.LoadFromFile",
 			"autorun":"false",
 			"params":[],
-			"dependency":"Application RDV médicaux",
+			"dependency":"Application RDV medicaux",
 		}
 		,
 		{
-			"name":"Création formulaire",
+			"name":"Creation formulaire",
 			"className":"tiers.LoadFromForm",
 			"autorun":"false",
 			"params":["java.util.List","java.util.List"],
-			"dependency":"Application RDV médicaux",
+			"dependency":"Application RDV medicaux",
 		}
 		,
 		{
@@ -44,7 +44,7 @@
 			"className":"tiers.DisplayWonderfullList",
 			"autorun":"false",
 			"params":[],
-			"dependency":"Application RDV médicaux"
+			"dependency":"Application RDV medicaux"
 		}
 	]
 
