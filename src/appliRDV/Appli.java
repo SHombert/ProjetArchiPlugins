@@ -23,13 +23,20 @@ import data.RDV;
 import plateforme.DescripteurPlugin;
 import plateforme.Loader;
 
-
+/**
+ * Classe principale pour l'application de gestion de rdv médicaux
+ *
+ */
 public class Appli extends JFrame implements Runnable , ActionListener{
+	
+	// Elements pour les plugins
 	private static final String APPNAME = "Application RDV medicaux";
 	IDisplay display;
 	HashMap<String, DescripteurPlugin> descriptionPluginsDispos;
 	ILoadRDVs loadRdv;
 	ICreateRDV createRDV;
+	
+	// Données
 	List<RDV> rdvs;
 	List<Medecin> medecins;
 	List<Patient> patients;
@@ -59,6 +66,9 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		patients = (ArrayList<Patient>)loadRdv.getPatients();
 	}
 
+	/**
+	 * Méthode lancée lors du thread.start
+	 */
 	public void run() {
 
 		System.out.println("Lancement de l'appli");
@@ -67,6 +77,10 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		setVisible(true);
 	}
 
+	/**
+	 * Affichage de la liste des RDV médicaux par le plugin displayComponent
+	 * Le type d'affichage est modifié par les boutons de l'interface graphique
+	 */
 	public void output() {
 		if(display == null) {
 			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en tableau"),null);
@@ -75,6 +89,9 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		c.add(displayComponent);
 	}
 	
+	/**
+	 * Construction des éléments de la fenetre principale
+	 */
 	private void setFrameContent() {
 		frameTitle = new JLabel("BIENVENUE SUR E-RDV"); 
 		frameTitle.setFont(new Font("Arial", Font.PLAIN, 30)); 
@@ -123,12 +140,18 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		
 	}
 
+	/**
+	 * Action listener pour les éléments cliquables de l'interface graphique
+	 */
 	public void actionPerformed(ActionEvent e) { 
+		
+		// bouton créer, charge le plugin de création via formulaire puis lance la méthode getRDV et met à jour la liste des RDV
 		if (e.getSource() == this.create) {  
 			System.out.println("Create clicked");
 			//dispose();
-			Object [] args = {this.medecins, this.patients }; 	  
-			createRDV = (ICreateRDV)Loader.loadPluginsFor(descriptionPluginsDispos.get("Creation formulaire"), args);
+			Object [] args = {this.medecins, this.patients };
+			if(createRDV==null)
+				createRDV = (ICreateRDV)Loader.loadPluginsFor(descriptionPluginsDispos.get("Creation formulaire"), args);
 			RDV newRDV = createRDV.getNewRdv();
 			if(newRDV != null)
 				rdvs.add(newRDV);
@@ -138,7 +161,9 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 			c.repaint();
 		}
 		
+		// bouton affichage en liste, charge le plugin d'affichage en liste et met à jour l'interface graphique
 		if (e.getSource() == this.switchDisplayList) { 
+			
 			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en liste"), null);
 			c.remove(displayComponent);
 			output();
@@ -146,6 +171,7 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 			c.repaint();
 		}
 		
+		// bouton affichage en tableau, charge le plugin d'affichage en tableau et met à jour l'interface graphique
 		if (e.getSource() == this.switchDisplayTable) { 
 			display = (IDisplay) Loader.loadPluginsFor(descriptionPluginsDispos.get("Affichage en tableau"), null);
 			c.remove(displayComponent);

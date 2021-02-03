@@ -1,5 +1,9 @@
 package plateforme;
 
+/**
+ * Enumération pour les statuts possibles d'un plugin
+ *
+ */
 public enum Status {
 	FAILURE("Echec du chargement"),
 	LOADED("Charge"),

@@ -111,7 +111,7 @@ public class Loader implements Subject {
 	    Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.ASKED.value());
 		Class c;
 		Constructor constructor;
-		Object pluggin= null;
+		Object plugin= null;
 		try {
 			c = Class.forName(descripteurPlugin.getClassName());
 			if(descripteurPlugin.getArgs()!=null) {
@@ -119,7 +119,7 @@ public class Loader implements Subject {
 			}else {
 				constructor = c.getConstructor(null);
 			}
-			pluggin = constructor.newInstance(args);
+			plugin = constructor.newInstance(args);
 			
 			Loader.getInstance().getDescriptionsPlugins().get(descripteurPlugin.getName()).setLoaded(true);
 			Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.LOADED.value());
@@ -128,7 +128,7 @@ public class Loader implements Subject {
 			e.printStackTrace();
 			Loader.getInstance().notifySubscribers(descripteurPlugin.getName(),Status.FAILURE.value());
 		}		
-		return pluggin;
+		return plugin;
 	}
 	
 	

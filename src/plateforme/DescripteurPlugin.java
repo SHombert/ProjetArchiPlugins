@@ -5,23 +5,21 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Classe représentant un plugin disponible dans la configuration de la plateforme
+ *
+ */
 public class DescripteurPlugin {
 	protected String name;
 	protected String className;
 	protected boolean autoRun;
 	protected HashMap<String,String> options;
+	// paramètre du constructeur par défaut de la classe principale du plugin
 	protected Class[] args; 
+	// plugins nécessaires au lancement du plugin
 	protected List<String> requirements;
+	// plugin parent (si existant)
 	protected String dependency;
-	
-	public String getDependency() {
-		return dependency;
-	}
-
-	public void setDependency(String dependency) {
-		this.dependency = dependency;
-	}
-
 	protected boolean loaded;
 
 	public DescripteurPlugin(String n, String className) {
@@ -29,8 +27,16 @@ public class DescripteurPlugin {
 		this.className=className;
 		loaded=false;
 	}
-
+	
 	public DescripteurPlugin() {
+	}
+	
+	public String getDependency() {
+		return dependency;
+	}
+
+	public void setDependency(String dependency) {
+		this.dependency = dependency;
 	}
 
 	public Class[] getArgs() {

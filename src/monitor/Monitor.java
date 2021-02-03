@@ -1,7 +1,8 @@
 package monitor;
 
 import java.awt.Dimension;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,6 +21,12 @@ import javax.swing.table.DefaultTableModel;
 import plateforme.Loader;
 import plateforme.Observer;
 
+/**
+ * Plugin pour le laoder de la plateforme
+ * Permet un suivi en temps réel de l'état des plugins disponibles
+ * @author Sarah
+ *
+ */
 public class Monitor extends JFrame implements Runnable, Observer {
 
 	Map<String,String> listePlugins;
@@ -61,12 +68,16 @@ public class Monitor extends JFrame implements Runnable, Observer {
 
 	/**
 	 * Ajoute les informations reçues dans la map des plugins et met à jour le tableau de suivi et l'historique
+	 * @param name : nom du plugin notifié
+	 * @param status : état du plugin notifié
 	 */
 	@Override
 	public void update(String name, String status) {
 		listePlugins.put(name,status);
 		if(!status.equals("Disponible dans la config")) {
-			addHistoricLine(LocalDate.now().toString(),name,status);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM : hh:mm:ss");
+			LocalDateTime time = LocalDateTime.now();
+			addHistoricLine(time.format(formatter),name,status);
 		}
 		refreshTable();
 		revalidate();
@@ -74,6 +85,12 @@ public class Monitor extends JFrame implements Runnable, Observer {
 		
 	}
 	
+	/**
+	 * Ajoute une ligne d'historique à l'interface graphique
+	 * @param time : heure actuelle
+	 * @param plugin : nom du plugin notifié
+	 * @param status : état du plugin notifié
+	 */
 	private void addHistoricLine(String time, String plugin, String status) {
 		String newLine = time;
 		switch (status) {
