@@ -1,7 +1,7 @@
 [
 		{
 			"name":"Application RDV medicaux",
-			"className":"appli.Appli",
+			"className":"appliRDV.Appli",
 			"autorun":"true",
 			"params":[],
 			"requirements":["Affichage en tableau","Chargement par fichier"],
@@ -9,7 +9,7 @@
 		},
 		{
 			"name":"Moniteur de plugins",
-			"className":"tiers.Monitor",
+			"className":"monitor.Monitor",
 			"autorun":"true",
 			"params":[
 				],

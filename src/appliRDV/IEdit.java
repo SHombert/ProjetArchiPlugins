@@ -1,4 +1,4 @@
-package appli;
+package appliRDV;
 
 import data.RDV;
 

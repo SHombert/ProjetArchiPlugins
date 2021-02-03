@@ -8,8 +8,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JList;
 
-
-import appli.IDisplay;
+import appliRDV.IDisplay;
 import data.RDV;
 
 public class DisplayList  implements IDisplay {

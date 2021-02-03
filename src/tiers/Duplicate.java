@@ -1,6 +1,6 @@
 package tiers;
 
-import appli.ICreateRDV;
+import appliRDV.ICreateRDV;
 import data.RDV;
 
 public class Duplicate implements ICreateRDV{

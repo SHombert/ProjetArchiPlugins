@@ -20,7 +20,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import appli.ICreateRDV;
+import appliRDV.ICreateRDV;
 import data.Medecin;
 import data.Patient;
 import data.RDV;

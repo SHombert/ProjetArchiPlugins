@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import appli.ILoadRDVs;
+import appliRDV.ILoadRDVs;
 import data.Medecin;
 import data.Patient;
 import data.RDV;

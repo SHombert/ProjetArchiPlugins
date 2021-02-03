@@ -1,4 +1,4 @@
-package appli;
+package appliRDV;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import data.RDV;
 public interface IDisplay {
 	// refactor sur DisplayStrategy --> extract interface
 	
-	// Permet d'avoir plusieurs implémentations de l'affichage, DisplayStrategy en est une possible
+	// Permet d'avoir plusieurs implï¿½mentations de l'affichage, DisplayStrategy en est une possible
 
 	 public JComponent displayRDVList(List<RDV> rdvList); // changer en displayRDV 
 

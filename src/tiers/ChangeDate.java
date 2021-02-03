@@ -1,6 +1,6 @@
 package tiers;
 
-import appli.IEdit;
+import appliRDV.IEdit;
 import data.RDV;
 
 public class ChangeDate implements IEdit {

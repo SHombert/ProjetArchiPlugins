@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import appli.IDisplay;
+import appliRDV.IDisplay;
 import data.RDV;
 import tiers.utils.DateHeaderRenderer;
 import tiers.utils.DefaultHeaderRenderer;

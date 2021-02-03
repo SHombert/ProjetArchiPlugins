@@ -1,4 +1,4 @@
-package tiers;
+package monitor;
 
 import java.awt.Dimension;
 import java.time.LocalDate;
