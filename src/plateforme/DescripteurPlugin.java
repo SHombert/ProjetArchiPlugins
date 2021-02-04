@@ -13,7 +13,6 @@ public class DescripteurPlugin {
 	protected String name;
 	protected String className;
 	protected boolean autoRun;
-	protected HashMap<String,String> options;
 	// paramètre du constructeur par défaut de la classe principale du plugin
 	protected Class[] args; 
 	// plugins nécessaires au lancement du plugin
@@ -61,14 +60,6 @@ public class DescripteurPlugin {
 
 	public void setClassName(String className) {
 		this.className = className;
-	}
-
-	public HashMap<String, String> getOptions() {
-		return options;
-	}
-
-	public void setOptions(HashMap<String, String> options) {
-		this.options = options;
 	}
 
 	public boolean isLoaded() {

@@ -24,20 +24,18 @@ import plateforme.Observer;
 /**
  * Plugin pour le laoder de la plateforme
  * Permet un suivi en temps réel de l'état des plugins disponibles
- * @author Sarah
  *
  */
 public class Monitor extends JFrame implements Runnable, Observer {
 
-	Map<String,String> listePlugins;
+	private Map<String,String> listePlugins;
 	
 	
-	JLabel labelList;	
-	JList <String> historic;
-	DefaultListModel <String> dlm;
-
-	DefaultTableModel dtm;
-	JTable table;
+	private JLabel labelList;	
+	private JList <String> historic;
+	private DefaultListModel <String> dlm;
+	private DefaultTableModel dtm;
+	private JTable table;
 	
 	public Monitor() {
 		Loader.getInstance().addSubscriber(this);
