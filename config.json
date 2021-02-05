@@ -46,6 +46,14 @@
 			"params":[],
 			"dependency":"Application RDV medicaux"
 		}
+		,
+		{
+			"name":"Création index",
+			"className":"tiers.CreateRDV",
+			"autorun":"false",
+			"params":[],
+			"dependency":"Application RDV medicaux"
+		}
 	]
 
 	

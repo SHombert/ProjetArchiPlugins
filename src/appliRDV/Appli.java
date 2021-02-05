@@ -48,6 +48,8 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 	private JButton create;
 	private JButton switchDisplayList;
 	private JButton switchDisplayTable;
+	private JButton createStatic;
+
 	private JComponent displayComponent;
 
 	public Appli()  {
@@ -138,6 +140,17 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 		switchDisplayTable.addActionListener(this); 
 		c.add(switchDisplayTable);
 		
+		createStatic = new JButton("Creer RDV static"); 
+		createStatic.setForeground(Color.WHITE);
+		createStatic.setBackground(Color.BLUE);
+		//create.setOpaque(true);
+		createStatic.setBorderPainted(false);
+		createStatic.setFont(new Font("Arial", Font.PLAIN, 15)); 
+		createStatic.setSize(175, 20); 
+		createStatic.setLocation(650 , 175); 
+		createStatic.addActionListener(this); 
+		c.add(createStatic);
+		
 	}
 
 	/**
@@ -179,6 +192,17 @@ public class Appli extends JFrame implements Runnable , ActionListener{
 			c.revalidate();
 			c.repaint();
 		}
+		
+		// bouton creer un rdv static pour une deuxieme implementation fonctionnelle du ICreateRDV
+				if (e.getSource() == this.createStatic) { 
+					if(createRDV==null)
+					createRDV = (ICreateRDV) Loader.loadPluginsFor(descriptionPluginsDispos.get("Création index"), null);
+					rdvs.add(createRDV.getNewRdv());
+					c.remove(displayComponent);
+					output();
+					c.revalidate();
+					c.repaint();
+				}
 	}
 
 
